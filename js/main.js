@@ -9,6 +9,7 @@ const buttonCancelForm = document.querySelector(".js-btn-cancel");
 const inputDesc = document.querySelector(".js-input-desc");
 const inputPhoto = document.querySelector(".js-input-photo");
 const inputName = document.querySelector(".js-input-name");
+const inputRace = document.querySelector(".js-input-race");
 const linkNewFormElememt = document.querySelector(".js-button-new-form");
 const labelMesageError = document.querySelector(".js-label-error");
 const input_search_desc = document.querySelector(".js_in_search_desc");
@@ -82,23 +83,39 @@ function handleClickNewCatForm(event) {
 //Adicionar nuevo gatito
 
 // Ejercicio 1 lección 2.9
-// const newKittenDataObject = {
-//   valueDesc: inputDesc.value,
-//   valuePhoto: inputPhoto.value,
-//   valueName: inputName.value,
-// };
+
+//Función para limpiar inputs
+function cleanInputs() {
+  inputDesc.value = "";
+  inputPhoto.value = "";
+  inputName.value = "";
+  inputRace.value = "";
+}
+ 
 
 function addNewKitten(event) {
   event.preventDefault();
   const valueDesc = inputDesc.value;
   const valuePhoto = inputPhoto.value;
   const valueName = inputName.value;
-  if (valueDesc === "" && valuePhoto === "" && valueName === "") {
+  const valueRace = inputRace.value;
+  if (valueDesc === "" || valuePhoto === "" || valueName === "") {
     labelMesageError.innerHTML = "Debe rellenar todos los valores";
   } else {
     if (valueDesc !== "" && valuePhoto !== "" && valueName !== "") {
       labelMesageError.innerHTML = "";
-    //   kittenDataList.push(newKittenDataObject);
+      
+      //Ejercicio 1 lección 2.9
+      const newKittenDataObject = {
+        desc: valueDesc,
+        image: valuePhoto,
+        name: valueName,
+        race: valueRace,
+      };
+      kittenDataList.push(newKittenDataObject);
+      cleanInputs();
+      labelMesageError.innerHTML = 'Mola! Un nuevo gatito en Adalab!';
+      renderKittenList(kittenDataList);
     }
   }
 }
@@ -106,10 +123,9 @@ function addNewKitten(event) {
 function cancelNewKitten(event) {
   event.preventDefault();
   newFormElement.classList.add("collapsed");
-  inputDesc.value = "";
-  inputPhoto.value = "";
-  inputName.value = "";
+  cleanInputs();
 }
+
 
 //Filtrar por descripción
 function filterKitten(event) {
