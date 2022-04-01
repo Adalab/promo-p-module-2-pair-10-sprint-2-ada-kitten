@@ -91,7 +91,6 @@ function cleanInputs() {
   inputName.value = "";
   inputRace.value = "";
 }
- 
 
 function addNewKitten(event) {
   event.preventDefault();
@@ -104,7 +103,7 @@ function addNewKitten(event) {
   } else {
     if (valueDesc !== "" && valuePhoto !== "" && valueName !== "") {
       labelMesageError.innerHTML = "";
-      
+
       //Ejercicio 1 lección 2.9
       const newKittenDataObject = {
         desc: valueDesc,
@@ -114,7 +113,7 @@ function addNewKitten(event) {
       };
       kittenDataList.push(newKittenDataObject);
       cleanInputs();
-      labelMesageError.innerHTML = 'Mola! Un nuevo gatito en Adalab!';
+      labelMesageError.innerHTML = "Mola! Un nuevo gatito en Adalab!";
       renderKittenList(kittenDataList);
     }
   }
@@ -126,17 +125,35 @@ function cancelNewKitten(event) {
   cleanInputs();
 }
 
-
+//ejercicio 1 lección 2.10
 //Filtrar por descripción
+
+//function filterKitten(ev) {
+//Modifica el código:
+//Haz un filter sobre el listado de gatitos
+//Vuelve a pintar el listado de gatitos filtrados en el HTML.
+//}
+
 function filterKitten(event) {
   event.preventDefault();
-  const descrSearchText = input_search_desc.value;
-  listElement.innerHTML = "";
-  for (const kittenItem of kittenDataList) {
-    if (kittenItem.desc.includes(descrSearchText)) {
-      listElement.innerHTML += renderKitten(kittenItem);
-    }
-  }
+  const descFilter = kittenDataList.filter((description) =>
+    description.desc
+      .toLowerCase()
+      .includes(input_search_desc.value.toLowerCase())
+  );
+  console.log(descFilter);
+  //no sabemos por qué no se pinta en el html
+  //  listElement.innerHTML = renderKitten(descFilter);
+
+  //forma de antes
+
+  // const descrSearchText = input_search_desc.value;
+  // listElement.innerHTML = "";
+  // for (const kittenItem of kittenDataList) {
+  //   if (kittenItem.desc.includes(descrSearchText)) {
+  //     listElement.innerHTML += renderKitten(kittenItem);
+  //   }
+  // }
 }
 
 //Mostrar el listado de gatitos en ell HTML
