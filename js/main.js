@@ -13,6 +13,8 @@ const inputRace = document.querySelector(".js-input-race");
 const linkNewFormElememt = document.querySelector(".js-button-new-form");
 const labelMesageError = document.querySelector(".js-label-error");
 const input_search_desc = document.querySelector(".js_in_search_desc");
+const GITHUB_USER = "gemamesasv";
+const SERVER_URL = `https://adalab-api.herokuapp.com/api/kittens/${GITHUB_USER}`;
 
 //Objetos con cada gatito
 const kittenData_1 = {
@@ -36,7 +38,16 @@ const kittenData_3 = {
   race: "British Shorthair",
 };
 
-const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
+// const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
+// Ejercicio 1 lección 2.11
+let kittenDataList = [];
+fetch(SERVER_URL, {
+  method: "GET",
+  headers: { "Content-Type": "application/json", },
+}).then((response) => response.json())
+.then((kittenInfo)=> console.log(kittenInfo));
+localStorage.setItem("dataKitten", JSON.stringify(kittenDataList));
+// continuar por aqui
 
 //Funciones
 function renderKitten(kittenData) {
@@ -142,8 +153,9 @@ function filterKitten(event) {
       .includes(input_search_desc.value.toLowerCase())
   );
   console.log(descFilter);
-  //no sabemos por qué no se pinta en el html
+  //no sabemos por qué no se pinta en el html, con la forma antigua
   //  listElement.innerHTML = renderKitten(descFilter);
+  renderKittenList(descFilter);
 
   //forma de antes
 
