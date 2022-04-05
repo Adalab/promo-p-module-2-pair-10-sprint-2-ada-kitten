@@ -143,7 +143,7 @@ function filterKitten(event) {
   );
   console.log(descFilter);
   //no sabemos por qué no se pinta en el html
-  //  listElement.innerHTML = renderKitten(descFilter);
+listElement.innerHTML = renderKitten(descFilter);
 
   //forma de antes
 
