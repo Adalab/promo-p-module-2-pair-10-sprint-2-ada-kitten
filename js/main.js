@@ -39,15 +39,28 @@ const kittenData_3 = {
 };
 
 // const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
+
 // Ejercicio 1 lección 2.11
 let kittenDataList = [];
 fetch(SERVER_URL, {
   method: "GET",
   headers: { "Content-Type": "application/json", },
 }).then((response) => response.json())
-.then((kittenInfo)=> console.log(kittenInfo));
-localStorage.setItem("dataKitten", JSON.stringify(kittenDataList));
-// continuar por aqui
+.then((kittenInfo)=> {console.log(kittenInfo);
+  kittenDataList = kittenInfo.results.map ((list)=>{
+    const newKittenDataList = {
+      name:list.name,
+      desc: list.desc,
+      race:list.race,
+      image:list.url,
+    };
+    return newKittenDataList;
+  });
+  console.log(kittenDataList);
+  renderKittenList(kittenDataList);
+});
+
+
 
 //Funciones
 function renderKitten(kittenData) {
@@ -74,6 +87,15 @@ function renderKittenList(kittenDataList) {
     listElement.innerHTML += renderKitten(kittenItem);
   }
 }
+
+
+
+
+//localStorage.setItem("dataKitten", JSON.stringify(kittenDataList));
+// continuar por aqui
+
+
+
 
 //Mostrar/ocultar el formulario
 function showNewCatForm() {
@@ -170,6 +192,9 @@ function filterKitten(event) {
 
 //Mostrar el listado de gatitos en ell HTML
 renderKittenList(kittenDataList);
+
+
+
 
 //Eventos
 linkNewFormElememt.addEventListener("click", handleClickNewCatForm);
