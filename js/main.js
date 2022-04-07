@@ -38,27 +38,43 @@ const kittenData_3 = {
   race: "British Shorthair",
 };
 
+
+
+let kittenDataList = [];
 // const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
 
-// Ejercicio 1 lección 2.11
-let kittenDataList = [];
-fetch(SERVER_URL, {
-  method: "GET",
-  headers: { "Content-Type": "application/json", },
-}).then((response) => response.json())
-.then((kittenInfo)=> {console.log(kittenInfo);
-  kittenDataList = kittenInfo.results.map ((list)=>{
-    const newKittenDataList = {
-      name:list.name,
-      desc: list.desc,
-      race:list.race,
-      image:list.url,
-    };
-    return newKittenDataList;
+localStorage.setItem('kittenList',JSON.stringify(kittenDataList));
+// EJERCICIO 1 LECCION 2.12
+const kittenListStored = JSON.parse(localStorage.getItem('kittensList'));
+if (kittenListStored !==null){
+  kittenDataList = kittenListStored
+  
+} 
+//renderKittenList(kittenDataList)
+else{// Ejercicio 1 lección 2.11
+
+
+  fetch(SERVER_URL, {
+    method: "GET",
+    headers: { "Content-Type": "application/json", },
+  }).then((response) => response.json())
+  .then((kittenInfo)=> {console.log(kittenInfo);
+    kittenDataList = kittenInfo.results.map ((list)=>{
+      const newKittenDataList = {
+        name:list.name,
+        desc: list.desc,
+        race:list.race,
+        image:list.url,
+      };
+      return newKittenDataList;
+    });
+    console.log(kittenDataList);
+    renderKittenList(kittenDataList);
   });
-  console.log(kittenDataList);
-  renderKittenList(kittenDataList);
-});
+  
+
+}
+
 
 
 
@@ -90,9 +106,6 @@ function renderKittenList(kittenDataList) {
 
 
 
-
-//localStorage.setItem("dataKitten", JSON.stringify(kittenDataList));
-// continuar por aqui
 
 
 
